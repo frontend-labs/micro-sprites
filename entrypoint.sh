@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 export DOCKER_USER="dockerfront"
 export ORIG_PASSWD=$(cat /etc/passwd | grep $DOCKER_USER)
@@ -13,6 +13,10 @@ ORIG_HOME=$(echo $ORIG_PASSWD | cut -f6 -d:)
 sed -i -e "s/:$ORIG_UID:$ORIG_GID:/:$DEV_UID:$DEV_GID:/" /etc/passwd
 sed -i -e "s/$DOCKER_USER:x:$ORIG_GID:/$DOCKER_USER:x:$DEV_GID:/" /etc/group
 
-ln -s $ORIG_HOME/vendor/node_modules $ORIG_HOME/tasks/node_modules
-su - $DOCKER_USER -c "cd $ORIG_HOME/tasks && $*"
-rm -fr $ORIG_HOME/tasks/node_modules
+su - $DOCKER_USER -c "
+  ln -s /usr/local/node_modules $ORIG_HOME/tasks/node_modules &&
+  cd $ORIG_HOME/tasks &&
+  $* &&
+  rm -fr $ORIG_HOME/tasks/node_modules
+"
+
