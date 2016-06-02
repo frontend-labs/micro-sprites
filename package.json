@@ -1,0 +1,15 @@
+{
+  "name": "docker-gulp-sprites",
+  "version": "1.0.0",
+  "description": "Isolated image to run the sprites task under gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "andru255",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp.spritesmith": "^6.2.1"
+  }
+}

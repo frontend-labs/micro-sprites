@@ -1,0 +1,151 @@
+/*
+Stylus variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon_home_width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon_home = x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet = width height image $spritesheet_sprites;
+*/
+$9_1_name = '9-1';
+$9_1_x = 213px;
+$9_1_y = 0px;
+$9_1_offset_x = -213px;
+$9_1_offset_y = 0px;
+$9_1_width = 82px;
+$9_1_height = 116px;
+$9_1_total_width = 376px;
+$9_1_total_height = 223px;
+$9_1_image = './demo.png';
+$9_1 = 213px 0px -213px 0px 82px 116px 376px 223px './demo.png' '9-1';
+$9_2_name = '9-2';
+$9_2_x = 0px;
+$9_2_y = 106px;
+$9_2_offset_x = 0px;
+$9_2_offset_y = -106px;
+$9_2_width = 100px;
+$9_2_height = 117px;
+$9_2_total_width = 376px;
+$9_2_total_height = 223px;
+$9_2_image = './demo.png';
+$9_2 = 0px 106px 0px -106px 100px 117px 376px 223px './demo.png' '9-2';
+$9_3_name = '9-3';
+$9_3_x = 295px;
+$9_3_y = 0px;
+$9_3_offset_x = -295px;
+$9_3_offset_y = 0px;
+$9_3_width = 81px;
+$9_3_height = 112px;
+$9_3_total_width = 376px;
+$9_3_total_height = 223px;
+$9_3_image = './demo.png';
+$9_3 = 295px 0px -295px 0px 81px 112px 376px 223px './demo.png' '9-3';
+$9_4_name = '9-4';
+$9_4_x = 121px;
+$9_4_y = 106px;
+$9_4_offset_x = -121px;
+$9_4_offset_y = -106px;
+$9_4_width = 85px;
+$9_4_height = 114px;
+$9_4_total_width = 376px;
+$9_4_total_height = 223px;
+$9_4_image = './demo.png';
+$9_4 = 121px 106px -121px -106px 85px 114px 376px 223px './demo.png' '9-4';
+$9_5_name = '9-5';
+$9_5_x = 0px;
+$9_5_y = 0px;
+$9_5_offset_x = 0px;
+$9_5_offset_y = 0px;
+$9_5_width = 121px;
+$9_5_height = 106px;
+$9_5_total_width = 376px;
+$9_5_total_height = 223px;
+$9_5_image = './demo.png';
+$9_5 = 0px 0px 0px 0px 121px 106px 376px 223px './demo.png' '9-5';
+$9_6_name = '9-6';
+$9_6_x = 121px;
+$9_6_y = 0px;
+$9_6_offset_x = -121px;
+$9_6_offset_y = 0px;
+$9_6_width = 92px;
+$9_6_height = 106px;
+$9_6_total_width = 376px;
+$9_6_total_height = 223px;
+$9_6_image = './demo.png';
+$9_6 = 121px 0px -121px 0px 92px 106px 376px 223px './demo.png' '9-6';
+$spritesheet_width = 376px;
+$spritesheet_height = 223px;
+$spritesheet_image = './demo.png';
+$spritesheet_sprites = $9_1 $9_2 $9_3 $9_4 $9_5 $9_6;
+$spritesheet = 376px 223px './demo.png' $spritesheet_sprites;
+
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  spriteWidth($icon_home)
+}
+
+.icon-email {
+  sprite($icon_email)
+}
+
+Example usage in HTML:
+
+`display: block` sprite:
+<div class="icon-home"></div>
+
+To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+
+// CSS
+.icon {
+  display: inline-block;
+}
+
+// HTML
+<i class="icon icon-home"></i>
+*/
+spriteWidth($sprite) {
+  width: $sprite[4];
+}
+
+spriteHeight($sprite) {
+  height: $sprite[5];
+}
+
+spritePosition($sprite) {
+  background-position: $sprite[2] $sprite[3];
+}
+
+spriteImage($sprite) {
+  background-image: url($sprite[8]);
+}
+
+sprite($sprite) {
+  spriteImage($sprite)
+  spritePosition($sprite)
+  spriteWidth($sprite)
+  spriteHeight($sprite)
+}
+
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of Stylus
+
+This must be run when you have at least 2 sprites.
+  If run with a single sprite, then there will be reference errors.
+
+sprites($spritesheet_sprites);
+*/
+sprites($sprites) {
+  for $sprite in $sprites {
+    $sprite_name = $sprite[9];
+    .{$sprite_name} {
+      sprite($sprite);
+    }
+  }
+}
