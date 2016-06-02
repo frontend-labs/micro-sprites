@@ -9,7 +9,7 @@ A microservice for generate sprites with a bundle of images
 How to install
 -------------
 
-> ~ docker build -t docker-sprites . 
+> ~ docker build -t micro-sprites . 
 
 
 Volumes
@@ -35,7 +35,7 @@ How to see a demo
 
 > cd test
 
-> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output docker-sprites gulp
+> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output micro-sprites gulp
 
 or directly
 ---------------
