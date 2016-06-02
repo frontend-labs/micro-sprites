@@ -43,4 +43,4 @@ or directly
 
 > cd test
 
-> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output andru255/micro-sprites gulp
+> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output frontendlabs/micro-sprites gulp
