@@ -1,5 +1,5 @@
 var gulp = require("gulp");
-var config = require('/home/dockerfront/config/Configfile.js');
+var config = require('/usr/local/share/config/Configfile.js');
 var spritesmith = require("gulp.spritesmith");
 
 gulp.task("default", function(){

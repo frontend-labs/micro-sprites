@@ -1,4 +1,4 @@
-var basePath = "/home/dockerfront/";
+var basePath = "/usr/local/share/";
 var config = {
     src: basePath + "input/images/*.gif",
     build: {

@@ -1,13 +1,11 @@
 FROM mhart/alpine-node:4
 ENV VERSION 1.0
-
 ENV DOCKER_USER="dockerfront"
-ENV HOME_DIR=/home/$DOCKER_USER
-ENV SRC_DIR=/home/$DOCKER_USER/input
-ENV SRC_VENDOR=/usr/local
+ENV USR_LOCAL=/usr/local
+ENV ENV_SHARED=$USR_LOCAL/share
 
-COPY package.json $SRC_VENDOR/package.json
-COPY npm-shrinkwrap.json $SRC_VENDOR/npm-shrinkwrap.json
+COPY package.json $USR_LOCAL/package.json
+COPY npm-shrinkwrap.json $USR_LOCAL/npm-shrinkwrap.json
 
 RUN apk add --update \
   build-base \
@@ -17,17 +15,17 @@ RUN apk add --update \
   npm install -g gulp@3.9.0 && \
   addgroup $DOCKER_USER && \
   adduser -s /bin/sh -D -G $DOCKER_USER $DOCKER_USER && \
-  cd $SRC_VENDOR && \
+  cd $USR_LOCAL && \
   npm install && \
-  mkdir $HOME_DIR/config && chown $DOCKER_USER:$DOCKER_USER -R $HOME_DIR/config && \
-  mkdir $HOME_DIR/tasks && chown $DOCKER_USER:$DOCKER_USER -R $HOME_DIR/tasks && \
-  mkdir $SRC_DIR && chown $DOCKER_USER:$DOCKER_USER -R $SRC_DIR && \
-  mkdir $HOME_DIR/output && chown $DOCKER_USER:$DOCKER_USER -R $HOME_DIR/output
+  mkdir $ENV_SHARED/config && \
+  mkdir $ENV_SHARED/tasks && \
+  mkdir $ENV_SHARED/input && \
+  mkdir $ENV_SHARED/output
 
-VOLUME $HOME_DIR/config
-VOLUME $HOME_DIR/tasks
-VOLUME $SRC_DIR
-VOLUME $HOME_DIR/output
+VOLUME $ENV_SHARED/config
+VOLUME $ENV_SHARED/tasks
+VOLUME $ENV_SHARED/input
+VOLUME $ENV_SHARED/output
 
 ADD entrypoint.sh /root/entrypoint.sh
 RUN chmod +x /root/entrypoint.sh
