@@ -7,24 +7,17 @@ export ORIG_GID=$(echo $ORIG_PASSWD | cut -f4 -d:)
 
 export DEV_UID=${DEV_UID:=$ORIG_UID}
 export DEV_GID=${DEV_GID:=$ORIG_GID}
+export ENV_SHARED=/usr/local/share
 
 ORIG_HOME=$(echo $ORIG_PASSWD | cut -f6 -d:)
-export NODE_MODULES=$ORIG_HOME/tasks/node_modules
 
 sed -i -e "s/:$ORIG_UID:$ORIG_GID:/:$DEV_UID:$DEV_GID:/" /etc/passwd
 sed -i -e "s/$DOCKER_USER:x:$ORIG_GID:/$DOCKER_USER:x:$DEV_GID:/" /etc/group
 
-if [ ! -d "$NODE_MODULES" ]; then
-    echo "linking node_modules"
-    ln -s /usr/local/node_modules $NODE_MODULES
-fi
+chown $DOCKER_USER:$DOCKER_USER $ORIG_HOME
+chown $DOCKER_USER:$DOCKER_USER $ENV_SHARED
 
 su - $DOCKER_USER -c "
-  cd $ORIG_HOME/tasks &&
-  $*
+  export ENV_MICROTASK=$ENV_SHARED &&
+  cd $ENV_SHARED/tasks/ && $*
 "
-
-if [ -d "$NODE_MODULES" ]; then
-    echo "removing node_modules"
-    rm -fr $NODE_MODULES
-fi

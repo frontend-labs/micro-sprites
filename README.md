@@ -1,46 +1,60 @@
-Docker Gulp Sprite
-===================
+## MicroSprite
 
 A microservice for generate sprites with a bundle of images
 
-----------
+
+### How to install
+
+```shell
+~ docker build -t micro-sprites . 
+```
 
 
-How to install
--------------
-
-> ~ docker build -t micro-sprites . 
-
-
-Volumes
--------------
+### Volumes
 
 This microservice provide the follow volumes:
 
-> ~ /home/dockerfront/input
+
+```shell
+/usr/local/share/input
+```
+
 This is the place for the host source
 
-> ~ /home/dockerfront/config
+```shell
+/usr/local/share/config
+```
+
 This is the place for config files
 
-> ~ /home/dockerfront/tasks
+```shell
+/usr/local/share/tasks
+```
+
 This is the place for task files
 
-> ~ /home/dockerfront/output
+```shell
+/usr/local/share/output
+```
+
 This path needs to be referenced with your output folder host
 
-How to see a demo
----------------
-> clone this repo
+### How to see a demo
 
-> cd test
+```shell
+clone this repo
 
-> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output micro-sprites gulp
+cd test
+
+docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/usr/local/share/config -v $(pwd)/tasks/gulp-sprites:/usr/local/share/tasks -v $(pwd)/src:/usr/local/share/input -v $(pwd)/public:/usr/local/share/output micro-sprites gulp
+```
 
 or directly
----------------
-> clone this repo
 
-> cd test
+```shell
+clone this repo
 
-> docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/home/dockerfront/config -v $(pwd)/tasks/gulp-sprites:/home/dockerfront/tasks -v $(pwd)/src:/home/dockerfront/input -v $(pwd)/public:/home/dockerfront/output frontendlabs/micro-sprites gulp
+cd test
+
+docker run --rm -e DEV_UID=$(id -u) -e DEV_GID=$(id -g) -v $(pwd)/config:/usr/local/share/config -v $(pwd)/tasks/gulp-sprites:/usr/local/share/tasks -v $(pwd)/src:/usr/local/share/input -v $(pwd)/public:/usr/local/share/output andru255/micro-sprites gulp
+```
